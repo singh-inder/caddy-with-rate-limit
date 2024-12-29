@@ -3,7 +3,6 @@ name: Build and push image
 on:
   push:
     tags: ["*"]
-    branches: [main]
 
 env:
   REGISTRY: ghcr.io
@@ -28,7 +27,6 @@ jobs:
           - linux/ppc64le
           - linux/riscv64
           - linux/s390x
-          - windows/amd64
     steps:
       - uses: actions/checkout@v4
 
@@ -56,14 +54,13 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          platform: ${{ matrix.platform }}
+          platforms: ${{ matrix.platform }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
       - name: Generate artifact attestation
         uses: actions/attest-build-provenance@v2
         with:
-          context: .
           subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME}}
           subject-digest: ${{ steps.push.outputs.digest }}
           push-to-registry: true
