@@ -1,6 +1,6 @@
 prebuilt [caddy](https://github.com/caddyserver/caddy) docker image with [caddy-ratelimit](https://github.com/mholt/caddy-ratelimit) module
 
-### Supported platforms:
+### image prebuilt for platforms:
 
 - linux/amd64
 - linux/arm/v6
